@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Table(name = "rutas")
-public class Rutas {
+public class Rutas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Ru_CodiRuta;

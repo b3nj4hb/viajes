@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Table(name = "conductores")
-public class Conductores {
+public class Conductores implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Co_CodiConduc;
