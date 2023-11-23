@@ -29,7 +29,6 @@ import lombok.Setter;
 @Getter
 @Table(name = "terminales")
 public class Terminal implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Te_CodTerm;
@@ -37,8 +36,7 @@ public class Terminal implements Serializable {
     private String Te_DireTerm;
     private String Te_NomTerm;
 
-    // Relaciones Autor
-
+    // Relaciones
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "terminal")
     @JsonIgnore
     private List<Flota> flota = new ArrayList<>();
