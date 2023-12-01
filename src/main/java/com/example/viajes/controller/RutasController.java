@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.viajes.entity.Terminal;
-import com.example.viajes.service.TerminalService;
+import com.example.viajes.entity.Rutas;
+import com.example.viajes.service.RutasService;
 
 @RestController
-@RequestMapping("/api/terminal")
-public class TerminalController {
+@RequestMapping("/api/ruta")
+public class RutasController {
     @Autowired
-    private TerminalService s;
+    private RutasService s;
 
     @GetMapping("/")
     public String get() {
@@ -31,9 +31,9 @@ public class TerminalController {
 
     // CREAR
     @PostMapping("/create")
-    public ResponseEntity<Terminal> save(@RequestBody Terminal lib) {
+    public ResponseEntity<Rutas> save(@RequestBody Rutas lib) {
         try {
-            Terminal l = s.create(lib);
+            Rutas l = s.create(lib);
             return new ResponseEntity<>(l, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,9 +42,9 @@ public class TerminalController {
 
     // LISTAR
     @GetMapping("/all")
-    public ResponseEntity<List<Terminal>> list() {
+    public ResponseEntity<List<Rutas>> list() {
         try {
-            List<Terminal> list = new ArrayList<>();
+            List<Rutas> list = new ArrayList<>();
             list = s.readAll();
             if (list.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -57,10 +57,10 @@ public class TerminalController {
 
     // BUSCAR {ID}
     @GetMapping("/read/{id}")
-    public ResponseEntity<Terminal> search(@PathVariable("id") int id) {
-        Terminal Terminal = s.read(id);
-        if (Terminal.getTe_CodTerm() > 0) {
-            return new ResponseEntity<>(Terminal, HttpStatus.OK);
+    public ResponseEntity<Rutas> search(@PathVariable("id") int id) {
+        Rutas Rutas = s.read(id);
+        if (Rutas.getRu_CodiRuta() > 0) {
+            return new ResponseEntity<>(Rutas, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -79,12 +79,12 @@ public class TerminalController {
 
     // ACTUALIZAR {ID}
     @PutMapping("/update/{id}")
-    public ResponseEntity<Terminal> update(@RequestBody Terminal l, @PathVariable("id") int id) {
+    public ResponseEntity<Rutas> update(@RequestBody Rutas l, @PathVariable("id") int id) {
         try {
-            Terminal li = s.read(id);
-            if (li.getTe_CodTerm() > 0) {
-                li.setTe_DireTerm(l.getTe_DireTerm());
-                li.setTe_NombTerm(l.getTe_NombTerm());
+            Rutas li = s.read(id);
+            if (li.getRu_CodiRuta() > 0) {
+                li.setRu_NombRuta(l.getRu_NombRuta());
+                li.setRu_ValoPasaj(l.getRu_ValoPasaj());
 
                 return new ResponseEntity<>(s.create(li), HttpStatus.OK);
             } else {

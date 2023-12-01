@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.viajes.entity.Terminal;
-import com.example.viajes.service.TerminalService;
+import com.example.viajes.entity.Viajes;
+import com.example.viajes.service.ViajesService;
 
 @RestController
-@RequestMapping("/api/terminal")
-public class TerminalController {
+@RequestMapping("/api/viaje")
+public class ViajesController {
     @Autowired
-    private TerminalService s;
+    private ViajesService s;
 
     @GetMapping("/")
     public String get() {
@@ -31,9 +31,9 @@ public class TerminalController {
 
     // CREAR
     @PostMapping("/create")
-    public ResponseEntity<Terminal> save(@RequestBody Terminal lib) {
+    public ResponseEntity<Viajes> save(@RequestBody Viajes lib) {
         try {
-            Terminal l = s.create(lib);
+            Viajes l = s.create(lib);
             return new ResponseEntity<>(l, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,9 +42,9 @@ public class TerminalController {
 
     // LISTAR
     @GetMapping("/all")
-    public ResponseEntity<List<Terminal>> list() {
+    public ResponseEntity<List<Viajes>> list() {
         try {
-            List<Terminal> list = new ArrayList<>();
+            List<Viajes> list = new ArrayList<>();
             list = s.readAll();
             if (list.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -57,10 +57,10 @@ public class TerminalController {
 
     // BUSCAR {ID}
     @GetMapping("/read/{id}")
-    public ResponseEntity<Terminal> search(@PathVariable("id") int id) {
-        Terminal Terminal = s.read(id);
-        if (Terminal.getTe_CodTerm() > 0) {
-            return new ResponseEntity<>(Terminal, HttpStatus.OK);
+    public ResponseEntity<Viajes> search(@PathVariable("id") int id) {
+        Viajes Viajes = s.read(id);
+        if (Viajes.getVi_NumeVuelta() > 0) {
+            return new ResponseEntity<>(Viajes, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -79,12 +79,15 @@ public class TerminalController {
 
     // ACTUALIZAR {ID}
     @PutMapping("/update/{id}")
-    public ResponseEntity<Terminal> update(@RequestBody Terminal l, @PathVariable("id") int id) {
+    public ResponseEntity<Viajes> update(@RequestBody Viajes l, @PathVariable("id") int id) {
         try {
-            Terminal li = s.read(id);
-            if (li.getTe_CodTerm() > 0) {
-                li.setTe_DireTerm(l.getTe_DireTerm());
-                li.setTe_NombTerm(l.getTe_NombTerm());
+            Viajes li = s.read(id);
+            if (li.getVi_NumeVuelta() > 0) {
+                li.setVi_Placa(l.getVi_Placa());
+                li.setVi_CodiRuta(l.getVi_CodiRuta());
+                li.setVi_FechViaje(l.getVi_FechViaje());
+                li.setVi_NumeVuelta(l.getVi_NumeVuelta());
+                li.setVi_ValoPasaj(l.getVi_ValoPasaj());
 
                 return new ResponseEntity<>(s.create(li), HttpStatus.OK);
             } else {

@@ -5,28 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.viajes.entity.Terminal;
-import com.example.viajes.repository.TerminalRepository;
-import com.example.viajes.service.TerminalService;
+import com.example.viajes.entity.Rutas;
+import com.example.viajes.repository.RutasRepository;
+import com.example.viajes.service.RutasService;
 
 @Service
-public class TerminalServiceImpl implements TerminalService {
-
+public class RutasServiceImpl implements RutasService {
     @Autowired
-    private TerminalRepository r;
+    private RutasRepository r;
 
     @Override
-    public List<Terminal> readAll() {
+    public List<Rutas> readAll() {
         return r.findAll();
     }
 
     @Override
-    public Terminal create(Terminal al) {
+    public Rutas create(Rutas al) {
         return r.save(al);
     }
 
     @Override
-    public Terminal read(int id) {
+    public Rutas read(int id) {
         return r.findById(id).get();
     }
 
@@ -36,7 +35,7 @@ public class TerminalServiceImpl implements TerminalService {
     }
 
     @Override
-    public Terminal update(Terminal al) {
+    public Rutas update(Rutas al) {
         return r.save(al);
     }
 }
