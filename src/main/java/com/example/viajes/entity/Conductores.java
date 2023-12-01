@@ -27,7 +27,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "conductores")
+@Table(name = "conductor")
 public class Conductores implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class Conductores implements Serializable {
     private String Co_FechNaci;
 
     // Relaciones
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "conductor")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "Vi_CodiConduc")
     @JsonIgnore
     private List<Viajes> viaje = new ArrayList<>();
 }

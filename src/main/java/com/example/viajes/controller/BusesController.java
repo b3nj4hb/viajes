@@ -25,8 +25,15 @@ public class BusesController {
     private BusesService s;
 
     @GetMapping("/")
-    public String get() {
-        return "TODO OK";
+    public ResponseEntity<String> mensaje() {
+        // Mensaje fijo que deseas devolver
+        String mensaje = "¡Hola desde mi API!";
+
+        // Imprime el mensaje en la consola (esto es solo para demostración)
+        System.out.println("Mensaje: " + mensaje);
+
+        // Retorna una respuesta al cliente
+        return new ResponseEntity<>(mensaje, HttpStatus.OK);
     }
 
     // CREAR
@@ -83,7 +90,7 @@ public class BusesController {
         try {
             Buses li = s.read(id);
             if (li.getBu_Placa() > 0) {
-                li.setFlota(l.getFlota());
+                li.setBu_CodiFlot(l.getBu_CodiFlot());
                 li.setBu_Capacidad(l.getBu_Capacidad());
                 li.setBu_FechFabri(l.getBu_FechFabri());
                 li.setBu_Tipo(l.getBu_Tipo());

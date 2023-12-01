@@ -27,7 +27,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "rutas")
+@Table(name = "ruta")
 public class Rutas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Rutas implements Serializable {
     private String Ru_ValoPasaj;
 
     // Relaciones
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "ruta")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "Vi_CodiRuta")
     @JsonIgnore
     private List<Viajes> viaje = new ArrayList<>();
 }

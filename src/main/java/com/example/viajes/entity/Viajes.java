@@ -27,32 +27,29 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "viajes")
+@Table(name = "viaje")
 public class Viajes implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String Vi_NumeVuelta;
-
-    // private int Vi_Placa;
-    // private String Vi_codiRuta;
-    private int Vi_NumePasajero;
-    private String Vi_FechViaje;
-    // private String Vi_CodiConduc;
-    private String Vi_ValoPasaj;
-
-    // Relaciones
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "Vi_Placa", referencedColumnName = "Bu_Placa")
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private Buses bus;
+    private Buses Vi_Placa;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "Vi_CodiRuta", referencedColumnName = "Ru_CodiRuta")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Rutas Vi_CodiRuta;
+
+    private int Vi_NumePasajero;
+    private String Vi_FechViaje;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "Vi_CodiConduc", referencedColumnName = "Co_CodiConduc")
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private Conductores conductor;
+    private Conductores Vi_CodiConduc;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Vi_codiRuta", referencedColumnName = "Ru_CodiRuta")
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private Rutas ruta;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int Vi_NumeVuelta;
+
+    private String Vi_ValoPasaj;
 }

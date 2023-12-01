@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,24 +32,23 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "buses")
+@Table(name = "bus")
 public class Buses implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Bu_Placa;
 
-    // private String Bu_CodiFlot;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "Bu_CodiFlot", referencedColumnName = "Fl_CodiFlot")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Flota Bu_CodiFlot;
+
     private int Bu_Capacidad;
     private String Bu_FechFabri;
     private String Bu_Tipo;
 
     // Relaciones
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Bu_CodiFlot", referencedColumnName = "Fl_codiflot")
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private Flota flota;
-
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "bus")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "Vi_Placa")
     @JsonIgnore
     private List<Viajes> viaje = new ArrayList<>();
 }

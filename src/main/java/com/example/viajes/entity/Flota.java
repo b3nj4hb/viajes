@@ -31,22 +31,21 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "flotas")
+@Table(name = "flota")
 public class Flota implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Fl_codiflot;
+    private int Fl_CodiFlot;
 
-    private String Fl_nombflot;
-    // private String Fl_CodiTerm;
+    private String Fl_NombFlot;
 
-    // Relaciones
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "Fl_CodiTerm", referencedColumnName = "Te_CodTerm")
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private Terminal terminal;
+    private Terminal Fl_CodiTerm;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "flota")
+    // Relaciones
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "Bu_CodiFlot")
     @JsonIgnore
     private List<Buses> bus = new ArrayList<>();
 }

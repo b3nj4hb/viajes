@@ -27,17 +27,17 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-@Table(name = "terminales")
+@Table(name = "terminal")
 public class Terminal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Te_CodTerm;
 
     private String Te_DireTerm;
-    private String Te_NomTerm;
+    private String Te_NombTerm;
 
     // Relaciones
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "terminal")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "Fl_CodiTerm")
     @JsonIgnore
     private List<Flota> flota = new ArrayList<>();
 }
