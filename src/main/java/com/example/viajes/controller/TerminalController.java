@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.viajes.entity.Buses;
-import com.example.viajes.service.BusesService;
+import com.example.viajes.entity.Terminal;
+import com.example.viajes.service.TerminalService;
 
 @RestController
-@RequestMapping("/api/bus")
-public class BusesController {
+@RequestMapping("/api/terminal")
+public class TerminalController {
     @Autowired
-    private BusesService s;
+    private TerminalService s;
 
     @GetMapping("/")
     public String get() {
@@ -31,9 +31,9 @@ public class BusesController {
 
     // CREAR
     @PostMapping("/create")
-    public ResponseEntity<Buses> save(@RequestBody Buses lib) {
+    public ResponseEntity<Terminal> save(@RequestBody Terminal lib) {
         try {
-            Buses l = s.create(lib);
+            Terminal l = s.create(lib);
             return new ResponseEntity<>(l, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,9 +42,9 @@ public class BusesController {
 
     // LISTAR
     @GetMapping("/all")
-    public ResponseEntity<List<Buses>> list() {
+    public ResponseEntity<List<Terminal>> list() {
         try {
-            List<Buses> list = new ArrayList<>();
+            List<Terminal> list = new ArrayList<>();
             list = s.readAll();
             if (list.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -57,10 +57,10 @@ public class BusesController {
 
     // BUSCAR {ID}
     @GetMapping("/read/{id}")
-    public ResponseEntity<Buses> search(@PathVariable("id") int id) {
-        Buses buses = s.read(id);
-        if (buses.getBu_Placa() > 0) {
-            return new ResponseEntity<>(buses, HttpStatus.OK);
+    public ResponseEntity<Terminal> search(@PathVariable("id") int id) {
+        Terminal Terminal = s.read(id);
+        if (Terminal.getTe_CodTerm() > 0) {
+            return new ResponseEntity<>(Terminal, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -79,14 +79,13 @@ public class BusesController {
 
     // ACTUALIZAR {ID}
     @PutMapping("/update/{id}")
-    public ResponseEntity<Buses> update(@RequestBody Buses l, @PathVariable("id") int id) {
+    public ResponseEntity<Terminal> update(@RequestBody Terminal l, @PathVariable("id") int id) {
         try {
-            Buses li = s.read(id);
-            if (li.getBu_Placa() > 0) {
-                li.setBu_CodiFlot(l.getBu_CodiFlot());
-                li.setBu_Capacidad(l.getBu_Capacidad());
-                li.setBu_FechFabri(l.getBu_FechFabri());
-                li.setBu_Tipo(l.getBu_Tipo());
+            Terminal li = s.read(id);
+            if (li.getTe_CodTerm() > 0) {
+                li.setTe_CodTerm(l.getTe_CodTerm());
+                li.setTe_DireTerm(l.getTe_DireTerm());
+                li.setTe_NombTerm(l.getTe_NombTerm());
 
                 return new ResponseEntity<>(s.create(li), HttpStatus.OK);
             } else {
